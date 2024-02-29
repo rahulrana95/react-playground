@@ -1,5 +1,6 @@
 function logsChanged(arr) {
   const contentArea = document.getElementById("v_content-area");
+
   contentArea.innerHTML = "";
   arr.forEach((item) => {
     const node = document.createElement("div");
@@ -8,8 +9,9 @@ function logsChanged(arr) {
     margin-bottom: 4px;
     background-color: palegreen;
     `;
-    node.innerHTML = `${new Date()  } : ${item}`;
-    contentArea.appendChild(node);
+    node.innerHTML = `${new Date()} : ${item}`;
+    node.classList.add("fade-in");
+    contentArea.insertBefore(node, contentArea.firstChild);
   });
 }
 function jobScheduler() {
