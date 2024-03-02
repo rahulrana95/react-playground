@@ -2,15 +2,32 @@ import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import vainllaEntry from "./vanilla-js-playground";
+import ContentArea from "./components/content-area";
 import("./vanilla-js-playground/task-scheduler/index");
 import("./vanilla-js-playground/event-delegation/index");
 import("./vanilla-js-playground/promise-polly");
 import("./vanilla-js-playground/slideshow");
 
+export const MENU = {
+  VIDEO_CHAT: "VIDEO_CHAT",
+};
+
 function App() {
   useEffect(() => {
     vainllaEntry();
   }, []);
+
+  const [menu, setMenu] = useState(MENU.VIDEO_CHAT);
+
+  useEffect(() => {
+    const cb = () => {
+      setMenu("");
+    };
+    document.addEventListener("EventDelegation", cb);
+    document.addEventListener("JobsScheduler", cb);
+    document.addEventListener("SlideShow", cb);
+    document.addEventListener("CustomPromise", cb);
+  });
 
   return (
     <div className="App">
@@ -22,8 +39,11 @@ function App() {
       <div id="vanilla">
         <div id="vanilla-left-menu">
           <div>Game1</div>
+          <div onClick={() => setMenu(MENU.VIDEO_CHAT)}>Omegle Video chat</div>
         </div>
-        <div id="v_content-area"></div>
+        <div id="v_content-area">
+          <ContentArea item={menu} />
+        </div>
       </div>
     </div>
   );
